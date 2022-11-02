@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Test;
+use Illuminate\Support\Facades\Storage;
 
 class TestController extends Controller
 {
@@ -12,5 +13,20 @@ class TestController extends Controller
         return view('welcome', [
             'tests' => Test::all()
         ]);
+    }
+
+    public function getFiles()
+    {
+        return Storage::files('/public');
+    }
+
+    public function testAuth(Request $request)
+    {
+        return 'gelukt';
+    }
+
+    public function uploadview()
+    {
+        return view('upload');
     }
 }

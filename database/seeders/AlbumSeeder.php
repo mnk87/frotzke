@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class AlbumSeeder extends Seeder
 {
@@ -19,5 +20,11 @@ class AlbumSeeder extends Seeder
             'name' => "album1",
             'foldername' => "album1"
         ]);
+        if(!in_array('album1', Storage::directories('/public')))
+        {
+            $path = 'public/album1';
+            Storage::makeDirectory($path);
+            echo 'folder created.';
+        }
     }
 }

@@ -16,8 +16,13 @@ use App\Http\Controllers\TestController;
 
 Route::get('/', [TestController::class, 'getAll']);
 
-Route::get('/upload', function () {
-    return view('upload');
-})->middleware(['auth'])->name('upload');
+// Route::get('/upload', function () {
+//     return view('upload');
+// })->middleware(['auth'])->name('upload');
 
+// Route::get('/upload/{album}', [TestController::class, 'testAuth'])->middleware(['auth']);
+Route::group(['prefix' => 'upload', 'middleware' => 'auth'], function()
+{
+    Route::get('/', [TestController::class, 'uploadview']);
+});
 require __DIR__.'/auth.php';
