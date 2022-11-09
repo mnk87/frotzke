@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Nunito', sans-serif;
+} 
+
+.topBar {
+    width: 100%;
+    background-color: green;
+    height: 50px;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    overflow: hidden;
+}
+
+.topBar > a {
+    text-decoration: none;
+    color: white;
+}
+
+.topBar > .title {
+    color: white;
+    font-weight: bold;
+}
+
+.uploadTitle {
+    text-align: center;
+    padding: 20px;
+}
+
+.containerDiv {
+    min-height: 1000px;
+    width: 1000px;
+    margin: auto;
+    /* border-left: 1px solid;
+    border-right: 1px solid; */
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.moarpadding {
+    margin-top: 50px;
+}
+
+.albumDiv {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.albumCard {
+    padding: 10px;
+    margin: 20px;
+    background-color: rgb(255, 255, 153);
+    color: rgb(51, 51, 255);
+    border-radius: 10px;
+    width: 300px;
+    height: 200px;
+    border: 1px solid black;
+    text-decoration: none;
+}
+
+.albumCard:hover {
+    box-shadow: 10px 10px 5px gray;
+}
+
+.albumTitle {
+    text-align: center;
+}

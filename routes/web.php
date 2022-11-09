@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\AlbumController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -24,5 +26,6 @@ Route::get('/', [TestController::class, 'getAll']);
 Route::group(['prefix' => 'upload', 'middleware' => 'auth'], function()
 {
     Route::get('/', [TestController::class, 'uploadview']);
+    Route::get('/albums/{album}', [AlbumController::class, 'getAlbum']);
 });
 require __DIR__.'/auth.php';

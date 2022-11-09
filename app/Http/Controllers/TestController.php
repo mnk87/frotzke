@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Test;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Album;
 
 class TestController extends Controller
 {
@@ -27,6 +28,6 @@ class TestController extends Controller
 
     public function uploadview()
     {
-        return view('upload');
+        return view('upload', ['albums' => Album::all()]);
     }
 }

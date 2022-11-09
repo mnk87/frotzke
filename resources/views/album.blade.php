@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Foto-upload dinges</title>
-    @vite(["resources/js/app.js"])
+    @vite(["resources/css/upload1.css", "resources/js/upload1.js", "app.js"])
 </head>
 <body>
 <div class="topBar">
@@ -18,17 +18,9 @@
     </form>
     {{-- einde logout knop --}}
 </div>
-<div class="containerDiv">
-    <h1 class="uploadTitle">Albums</h1>
-    <div class="albumDiv">
-        @foreach ($albums as $album)
-        <a href="/upload/albums/{{ $album->id }}">
-            <div class="albumCard">
-                <h3 class="albumTitle">{{ $album->name }}</h3>
-            </div>
-        </a>
-        @endforeach
-    </div>
+<div class="container">
+<h1>{{ $album->name }}</h1>
+
 </div>
 </body>
 </html>
