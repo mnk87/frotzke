@@ -25,9 +25,4 @@ class TestController extends Controller
     {
         return 'gelukt';
     }
-
-    public function uploadview()
-    {
-        return view('upload', ['albums' => Album::all()]);
-    }
 }

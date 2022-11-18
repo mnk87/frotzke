@@ -25,7 +25,8 @@ Route::get('/', [TestController::class, 'getAll']);
 // Route::get('/upload/{album}', [TestController::class, 'testAuth'])->middleware(['auth']);
 Route::group(['prefix' => 'upload', 'middleware' => 'auth'], function()
 {
-    Route::get('/', [TestController::class, 'uploadview']);
+    Route::get('/', [AlbumController::class, 'uploadview']);
     Route::get('/albums/{album}', [AlbumController::class, 'getAlbum']);
+    Route::post('/albums', [AlbumController::class, 'storeAlbum']);
 });
 require __DIR__.'/auth.php';

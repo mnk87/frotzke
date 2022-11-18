@@ -77,3 +77,7 @@
 .albumTitle {
     text-align: center;
 }
+
+#saveAlbumError {
+    color: red;
+}
