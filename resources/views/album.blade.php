@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Foto-upload dinges</title>
-    @vite(["resources/css/upload1.css", "resources/js/upload1.js", "app.js"])
+    @vite(["resources/js/app.js"])
 </head>
 <body>
 <div class="topBar">
@@ -18,8 +18,15 @@
     </form>
     {{-- einde logout knop --}}
 </div>
-<div class="container">
+<div class="containerDiv">
+    <a href="{{ route('uploadhome') }}" class="backButton1"><< terug naar albums</a>
 <h1>{{ $album->name }}</h1>
+<form action="/upload/albums/uploadMultiple" method="post" enctype="multipart/form-data">
+    @csrf
+    <input type="file" name="photos[]" id="photos" multiple>
+    <input type="hidden" name="albumid" value="{{ $album->id }}">
+    <button type="submit" name="submit" class="btn btn-primary">submit</button>
+</form>
 
 </div>
 </body>

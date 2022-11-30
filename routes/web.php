@@ -25,8 +25,10 @@ Route::get('/', [TestController::class, 'getAll']);
 // Route::get('/upload/{album}', [TestController::class, 'testAuth'])->middleware(['auth']);
 Route::group(['prefix' => 'upload', 'middleware' => 'auth'], function()
 {
-    Route::get('/', [AlbumController::class, 'uploadview']);
+    Route::get('/', [AlbumController::class, 'uploadview'])->name('uploadhome');
     Route::get('/albums/{album}', [AlbumController::class, 'getAlbum']);
     Route::post('/albums', [AlbumController::class, 'storeAlbum']);
+    Route::delete('/albums/{album}', [AlbumController::class, 'deleteAlbum']);
+    Route::post('/albums/uploadMultiple', [AlbumController::class, 'uploadMultiple']);
 });
 require __DIR__.'/auth.php';

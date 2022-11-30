@@ -33,5 +33,36 @@ function saveAlbum() {
     location.reload(true);
   });
 }
+const saveAlbumButton = document.getElementById('saveAlbumButton');
+if(saveAlbumButton) {
+  saveAlbumButton.addEventListener('click', saveAlbum);
+}
 
-document.getElementById('saveAlbumButton').addEventListener('click', saveAlbum);
+function deleteAlbum() {
+  const id = document.getElementById('albumSelect').value;
+  const url = 'upload/albums/' + id;
+  axios.delete(url).then(function (response) {
+    if(response.data.error) {
+      console.log(response.data.error);
+      return;
+    }
+    if(response.data.success) {
+      // console.log(response.data.success);
+      location.reload(true);
+    }
+  })
+  console.log(id);
+}
+const deleteAlbumButton = document.getElementById('deleteAlbumButton');
+if(deleteAlbumButton) {
+  deleteAlbumButton.addEventListener('click', deleteAlbum);
+}
+const photos = document.getElementById('photos');
+if(photos) {
+  photos.addEventListener('change', logthat);
+}
+
+function logthat() {
+  const files = document.getElementById('photos').value;
+  console.log(files);
+}

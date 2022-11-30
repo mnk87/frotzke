@@ -21,6 +21,7 @@
 <div class="containerDiv">
     <h1 class="uploadTitle">Albums</h1>
     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#albumModal">Nieuw Album</button>
+    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteAlbumModal">Verwijder Album</button>
     <div class="albumDiv"> 
         @foreach ($albums as $album)
         <a href="/upload/albums/{{ $album->id }}">
@@ -35,7 +36,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
+                    <h5 class="modal-title">Nieuw album aanmaken</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
             <div class="modal-body">
@@ -46,7 +47,7 @@
                 <div class="mb-3">
                     <label for="folderNameInput" class="form-label">Mapnaam</label>
                     <input type="email" class="form-control" id="folderNameInput" placeholder="Mapnaam">
-                    <p id="saveAlbumError"></p>
+                    <p id="saveAlbumError" class="errorMessage"></p>
                 </div>
             </div>
             <div class="modal-footer">
@@ -55,8 +56,35 @@
             </div>
         </div>
     </div>
+    </div>
     <!-- einde modal -->
-
+    <!-- delete modal -->
+    <div class="modal" id="deleteAlbumModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Album verwijderen</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="albumSelect" class="form-label">Naam</label>
+                    <select name="albumSelect" class="form-select" id="albumSelect">
+                        <option selected>Selecteer een album om te verwijderen.</option>
+                        @foreach ($albums as $album)
+                            <option value="{{ $album->id }}">{{ $album->name }}</option>
+                        @endforeach
+                    </select>
+                    <p id="deleteAlbumError" class="errorMessage"></p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" id="deleteAlbumButton">Save changes</button>
+            </div>
+        </div>
+    </div>
+    <!-- einde delete modal -->
 </div> <!-- einde container div --> 
 
 

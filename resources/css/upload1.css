@@ -78,6 +78,11 @@
     text-align: center;
 }
 
-#saveAlbumError {
+.errorMessage {
     color: red;
+}
+
+.backButton1 {
+    color: blue;
+    text-decoration: solid;
 }

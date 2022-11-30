@@ -26,8 +26,8 @@ class AlbumController extends Controller
         if(!$album->save()){
             return response()->json(["error" => "is nie goed gegaan"]);
         }
-        // $path = 'public/'.$request->input('foldername');
-        // Storage::makeDirectory($path);
+        $path = 'public/'.$request->input('foldername');
+        Storage::makeDirectory($path);
         return $album;
     }
 
@@ -38,9 +38,30 @@ class AlbumController extends Controller
         ]);
     }
 
-    public function deleteAlbum(Request $request)
+    public function deleteAlbum($album)
     {
-        $id = $request->input('id');
-        return response()->json(['testing' => 'id gevonden. '.$id]);
+        $album = Album::find($album);
+        $path = 'public/'.$album->foldername;
+        $dirs = Storage::directories('public/');
+        if(in_array($path, $dirs)){
+            Storage::deleteDirectory($path);
+            $album->delete();
+            return response()->json(["success" => "map en model verwijderd"]);
+        } else {
+            $album->delete();
+            return response()->json(["error" => "alleen model verwijderd, map niet gevonden."]);
+        }
+    }
+
+    public function uploadMultiple(Request $request)
+    {
+        // dd($request->file('photos'));
+        $album = Album::find($request->input('albumid'));
+        $foldername = $album->foldername;
+        
+        foreach($request->file('photos') as $file)
+        {
+            //do something with files
+        }
     }
 }
