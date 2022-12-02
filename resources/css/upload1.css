@@ -37,6 +37,8 @@
     min-height: 1000px;
     width: 1000px;
     margin: auto;
+    padding-left: 10px;
+    padding-right: 10px;
     /* border-left: 1px solid;
     border-right: 1px solid; */
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Album;
+use App\Models\Photo;
 use Illuminate\Support\Facades\Storage;
 use Validator;
 
@@ -34,13 +35,15 @@ class AlbumController extends Controller
     public function getAlbum($album)
     {
         return view('album', [
-            'album' => Album::find($album)
+            'album' => Album::find($album),
+            'photos' => Photo::where('album_id', $album)->get()
         ]);
     }
 
     public function deleteAlbum($album)
     {
         $album = Album::find($album);
+        $album->photos()->delete();
         $path = 'public/'.$album->foldername;
         $dirs = Storage::directories('public/');
         if(in_array($path, $dirs)){
@@ -58,10 +61,19 @@ class AlbumController extends Controller
         // dd($request->file('photos'));
         $album = Album::find($request->input('albumid'));
         $foldername = $album->foldername;
-        
-        foreach($request->file('photos') as $file)
+        $photos = $request->file('photos');
+        foreach($photos as $file)
         {
-            //do something with files
+            $name = $file->getClientOriginalName();
+            $photo = new Photo;
+            $photo->filename = $name;
+            $photo->album_id = $album->id;
+            $photo->save();
+            $dir = "public/".$album->foldername;
+            $path = $file->storeAs($dir, $name);
         }
+        $oeveel = count($photos);
+        $fotos = $oeveel > 1 ? "foto's" : "foto";
+        return back()->with('status', $oeveel.' '.$fotos.' met succes geüpload.');
     }
 }
