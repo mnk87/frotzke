@@ -88,3 +88,8 @@
     color: blue;
     text-decoration: solid;
 }
+
+.albumBgImg {
+    max-height: 80px;
+    max-width: 80px;
+}

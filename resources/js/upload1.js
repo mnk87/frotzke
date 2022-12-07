@@ -22,7 +22,6 @@ function saveAlbum() {
   const folderName = document.getElementById('folderNameInput').value;
   const yearFolder = document.getElementById('yearFolderInput').value;
   const bgimgfile = document.getElementById('bgImgInput').files[0];
-  console.log(bgimgfile);
   axios.post('/upload/albums', {
     name: name,
     foldername: folderName,
@@ -34,13 +33,20 @@ function saveAlbum() {
         'Content-Type': 'multipart/form-data'
     }
   }).then(function (response) {
-    console.log(response);
+    if(response.data.test) {
+      console.log("response: ", response);
+      // console.log(response.data.test);
+      return;
+    }
     if(response.data.error) {
       console.log(response.data.error);
       document.getElementById('saveAlbumError').innerText = response.data.error;
       return;
     }
-    location.reload(true);
+    if(response.data.success) {
+      console.log("response: ", response);
+      location.reload(true);
+    }
   });
 }
 const saveAlbumButton = document.getElementById('saveAlbumButton');

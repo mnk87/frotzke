@@ -28,6 +28,12 @@
             <div class="albumCard">
                 <h3 class="albumTitle">{{ $album->name }}</h3>
                 <p>aantal foto's {{ $album->photos->count() }} </p>
+                @if($album->bgimg)
+                    <p>achtergrondplaatje voor deze pagina: {{ $album->bgimg }}</p>
+                    <img src="{{ url('storage/'.$album->foldername.'/'.$album->bgimg) }}" alt="" class="albumBgImg">
+                @else
+                    <p>geen achtergrondplaatje ingesteld.</p>
+                @endif
             </div>
         </a>
         @endforeach

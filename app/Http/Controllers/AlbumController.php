@@ -21,18 +21,20 @@ class AlbumController extends Controller
         $album->name = $request->input('name');
         $album->foldername = $request->input('foldername');
         $album->yearfolder = $request->input('yearfolder');
-        $bgimg = $request->file('bgimg');
-        dd($bgimg);
-        $test = false;
-        if(empty($request->input('name')) || empty($request->input('foldername'))) {
-            return response()->json(["error" => "Er is iets fout gegaan met het aanmaken van een nieuw album. Controleer of je beide velden hebt ingevuld."]);
+        $file = $request->file('bgimg');
+        $name = "bgimg".".".$file->getClientOriginalExtension();
+        $album->bgimg = $name;
+        // return response()->json(["test" => $name]);
+        $path = 'public/'.$request->input('foldername');
+        Storage::makeDirectory($path);
+        $storedFile = $file->storeAs($path, $name);
+        if(empty($request->input('name')) || empty($request->input('foldername')) || empty($request->input('yearfolder')) || empty($request->file('bgimg'))) {
+            return response()->json(["error" => "Er is iets fout gegaan met het aanmaken van een nieuw album. Controleer of je alle velden hebt ingevuld."]);
         }
         if(!$album->save()){
             return response()->json(["error" => "is nie goed gegaan"]);
         }
-        $path = 'public/'.$request->input('foldername');
-        Storage::makeDirectory($path);
-        return $album;
+        return response()->json(["success" => $album]);
     }
 
     public function getAlbum($album)
