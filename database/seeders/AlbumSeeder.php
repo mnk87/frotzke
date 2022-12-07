@@ -18,7 +18,8 @@ class AlbumSeeder extends Seeder
     {
         DB::table('albums')->insert([
             'name' => "album1",
-            'foldername' => "album1"
+            'foldername' => "album1",
+            'yearfolder' => "fotos2023"
         ]);
         if(!in_array('album1', Storage::directories('/public')))
         {

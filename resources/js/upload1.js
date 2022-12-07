@@ -20,9 +20,19 @@ function myFunction() {
 function saveAlbum() {
   const name = document.getElementById('nameInput').value;
   const folderName = document.getElementById('folderNameInput').value;
+  const yearFolder = document.getElementById('yearFolderInput').value;
+  const bgimgfile = document.getElementById('bgImgInput').files[0];
+  console.log(bgimgfile);
   axios.post('/upload/albums', {
     name: name,
-    foldername: folderName
+    foldername: folderName,
+    yearfolder: yearFolder,
+    bgimg: bgimgfile
+  },
+  {
+    headers: {
+        'Content-Type': 'multipart/form-data'
+    }
   }).then(function (response) {
     console.log(response);
     if(response.data.error) {

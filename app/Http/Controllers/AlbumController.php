@@ -20,6 +20,9 @@ class AlbumController extends Controller
         $album = new Album;
         $album->name = $request->input('name');
         $album->foldername = $request->input('foldername');
+        $album->yearfolder = $request->input('yearfolder');
+        $bgimg = $request->file('bgimg');
+        dd($bgimg);
         $test = false;
         if(empty($request->input('name')) || empty($request->input('foldername'))) {
             return response()->json(["error" => "Er is iets fout gegaan met het aanmaken van een nieuw album. Controleer of je beide velden hebt ingevuld."]);

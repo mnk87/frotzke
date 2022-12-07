@@ -19,6 +19,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('foldername');
+            $table->string('yearfolder');
+            $table->string('bgimg')->nullable();
             $table->timestamps();
         });
     }

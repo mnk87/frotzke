@@ -27,6 +27,7 @@
         <a href="/upload/albums/{{ $album->id }}">
             <div class="albumCard">
                 <h3 class="albumTitle">{{ $album->name }}</h3>
+                <p>aantal foto's {{ $album->photos->count() }} </p>
             </div>
         </a>
         @endforeach
@@ -47,6 +48,14 @@
                 <div class="mb-3">
                     <label for="folderNameInput" class="form-label">Mapnaam</label>
                     <input type="email" class="form-control" id="folderNameInput" placeholder="Mapnaam">
+                </div>
+                <div class="mb-3">
+                    <label for="yearFolderInput" class="form-label">Jaarmapnaam</label>
+                    <input type="email" class="form-control" id="yearFolderInput" placeholder="Jaarmapnaam">
+                </div>
+                <div class="mb-3">
+                    <label for="bgImgInput" class="form-label">Achtergrondafbeelding</label>
+                    <input class="form-control" type="file" id="bgImgInput">
                     <p id="saveAlbumError" class="errorMessage"></p>
                 </div>
             </div>
