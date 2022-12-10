@@ -82,3 +82,20 @@ function logthat() {
   const files = document.getElementById('photos').value;
   console.log(files);
 }
+
+const photoList = document.getElementById('photoListDiv');
+
+if(photoList) {
+  let photoItems = photoList.querySelectorAll(".photoListItem");
+  for(let i = 0; i < photoItems.length; i++) {
+    photoItems[i].addEventListener('click', function() {
+      displayBig(photoItems[i].dataset.filename);
+      });
+  }
+}
+
+function displayBig(filename) {
+  
+  const photoSrc = folder + "/" + filename;
+  document.getElementById("bigDisplay").src = photoSrc;
+}

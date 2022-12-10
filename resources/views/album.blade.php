@@ -8,6 +8,11 @@
     @vite(["resources/js/app.js"])
 </head>
 <body>
+    <script>
+        let album = @json($album);
+        let photos = @json($photos);
+        const folder = "{{ url('storage/'.$album->foldername) }}";
+    </script>
 <div class="topBar">
     <p class="title">Foto upload voor Puitenol.nl</p>
     {{-- logout knop --}}
@@ -32,13 +37,22 @@
         <input type="hidden" name="albumid" value="{{ $album->id }}">
         <button type="submit" name="submit" class="btn btn-primary">submit</button>
     </form>
-    <div id="photoListDiv">
-    @foreach ($photos as $photo)
-        <div>
-            <h1>{{ $photo->filename }}</h1>
-            <img src="{{ url('storage/'.$album->foldername.'/'.$photo->filename) }}" alt="">
+    <div id="photoDiv">
+        <div id="photoListDiv">
+        @foreach ($photos as $photo)
+            <div class="photoListItem" data-filename="{{ $photo->filename }}">
+                <div class="photoInfo" >
+                    <input type="checkbox" class="photoCheck" value="{{ $photo->id }}">
+                    <h1>{{ $photo->filename }}</h1>
+                    <p>{{ $photo->id }}</p>
+                </div>
+                <img src="{{ url('storage/'.$album->foldername.'/'.$photo->filename) }}" alt="">
+            </div>
+        @endforeach
         </div>
-    @endforeach
+        <div id="photoDisplayDiv">
+            <img id="bigDisplay" src="@if($photos->first()) {{ url('storage/'.$album->foldername.'/'.$photos->first()->filename) }} @endif" alt="">
+        </div>
     </div>
 </div>
 </body>
