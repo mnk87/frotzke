@@ -40,7 +40,7 @@
     <div id="photoDiv">
         <div id="photoListDiv">
         @foreach ($photos as $photo)
-            <div class="photoListItem" data-filename="{{ $photo->filename }}">
+            <div class="photoListItem" data-filename="{{ $photo->filename }}" data-photoid="{{ $photo->id }}">
                 <div class="photoInfo" >
                     <input type="checkbox" class="photoCheck" value="{{ $photo->id }}">
                     <h1>{{ $photo->filename }}</h1>
@@ -50,8 +50,15 @@
             </div>
         @endforeach
         </div>
-        <div id="photoDisplayDiv">
-            <img id="bigDisplay" src="@if($photos->first()) {{ url('storage/'.$album->foldername.'/'.$photos->first()->filename) }} @endif" alt="">
+        <div id="rightSide">
+            <div id="photoDisplayDiv">
+                <img id="bigDisplay" src="@if($photos->first()) {{ url('storage/'.$album->foldername.'/'.$photos->first()->filename) }} @endif" alt="" data-photoid="">
+            </div>
+            <div id="bottomRight">
+                <button type="button" id="brleft" name="brleft" class="bottomControls">Linksom Draaien</button>
+                <button type="button" id="brright" name="brright" class="bottomControls">Rechtsom Draaien</button>
+            </div>
+            
         </div>
     </div>
 </div>

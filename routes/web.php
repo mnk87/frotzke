@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\AlbumController;
+use App\Http\Controllers\PhotoController;
 
 
 /*
@@ -30,5 +31,6 @@ Route::group(['prefix' => 'upload', 'middleware' => 'auth'], function()
     Route::post('/albums', [AlbumController::class, 'storeAlbum']);
     Route::delete('/albums/{album}', [AlbumController::class, 'deleteAlbum']);
     Route::post('/albums/uploadMultiple', [AlbumController::class, 'uploadMultiple']);
+    Route::put('/albums/photo-edit', [PhotoController::class, 'editImage']);
 });
 require __DIR__.'/auth.php';
