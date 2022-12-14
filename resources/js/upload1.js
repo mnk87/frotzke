@@ -104,12 +104,11 @@ function displayBig(filename, photoid) {
 
 function editImage(action) {
   const id = +document.getElementById('bigDisplay').dataset.photoid;
-  console.log(id);
   axios.put('/upload/albums/photo-edit', {
     photoid: id,
     action: action
   }).then(function (response) {
-    console.log(response);
+    // console.log(response);
     if(response.data.test) {
       console.log("response: ", response.data);
       // console.log(response.data.test);
@@ -120,8 +119,8 @@ function editImage(action) {
       return;
     }
     if(response.data.success) {
-      console.log("response: ", response);
-      location.reload(true);
+      updateImageDisplay(document.getElementById('bigDisplay').src);
+      return;
     }
   });
 }
@@ -138,4 +137,14 @@ if(bottomRight) {
   bottomRight.addEventListener('click', function () {
     editImage("rotateRight");
   });
+}
+
+function updateImageDisplay(src) {
+  src = src.split(".jpg")[0] + ".jpg";
+  let imgs = document.querySelectorAll("img");
+  for(let i = 0; i < imgs.length; i++) {
+    if(imgs[i].src.startsWith(src)) {
+      imgs[i].src = src + "?t=" + new Date().getTime();
+    }
+  }
 }

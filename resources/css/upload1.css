@@ -115,6 +115,10 @@
     align-items: center;
 }
 
+#photoDisplayDiv > img {
+    max-height: 300px;
+}
+
 #rightSide {
     width: 50%;
     border: 1px solid black;
