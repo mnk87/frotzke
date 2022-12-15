@@ -73,15 +73,6 @@ const deleteAlbumButton = document.getElementById('deleteAlbumButton');
 if(deleteAlbumButton) {
   deleteAlbumButton.addEventListener('click', deleteAlbum);
 }
-const photos = document.getElementById('photos');
-if(photos) {
-  photos.addEventListener('change', logthat);
-}
-
-function logthat() {
-  const files = document.getElementById('photos').value;
-  console.log(files);
-}
 
 const photoList = document.getElementById('photoListDiv');
 
@@ -147,4 +138,13 @@ function updateImageDisplay(src) {
       imgs[i].src = src + "?t=" + new Date().getTime();
     }
   }
+}
+
+const alertBox = document.getElementById('alertBox');
+if(alertBox) {
+  setTimeout(destroyAlertBox, 2000);
+}
+
+function destroyAlertBox() {
+  document.getElementById('alertBox').remove();
 }

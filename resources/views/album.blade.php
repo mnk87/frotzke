@@ -27,7 +27,7 @@
     <a href="{{ route('uploadhome') }}" class="backButton1"><< terug naar albums</a>
     <h1>{{ $album->name }}</h1>
     @if (session('status'))
-    <div class="alert alert-success">
+    <div class="alert alert-success" id="alertBox">
         {{ session('status') }}
     </div>
     @endif
