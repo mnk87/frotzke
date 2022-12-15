@@ -7,9 +7,13 @@ use App\Models\Album;
 use App\Models\Photo;
 use Illuminate\Support\Facades\Storage;
 use Validator;
+use Image;
 
 class AlbumController extends Controller
 {
+
+    private $resizeHeight = 480;
+
     public function uploadview()
     {
         return view('upload', ['albums' => Album::all()]);
@@ -69,13 +73,22 @@ class AlbumController extends Controller
         $photos = $request->file('photos');
         foreach($photos as $file)
         {
-            $name = $file->getClientOriginalName();
+            $img = Image::make($file);
+            if($img->height() > $this->resizeHeight)
+            {
+                $img->resize(null, $this->resizeHeight, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+            }
+            $name = trim(strrev(stristr(strrev($file->getClientOriginalName()), ".")), ".")."--".hash("crc32", microtime()).".jpg";
+            $encoded = $img->encode('jpg');
+            $fileName = "public/".$foldername."/".$name;
+            Storage::put($fileName, $encoded->__toString());
+            $img->destroy();
             $photo = new Photo;
             $photo->filename = $name;
             $photo->album_id = $album->id;
             $photo->save();
-            $dir = "public/".$album->foldername;
-            $path = $file->storeAs($dir, $name);
         }
         $oeveel = count($photos);
         $fotos = $oeveel > 1 ? "foto's" : "foto";
