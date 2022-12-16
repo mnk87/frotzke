@@ -11,12 +11,6 @@ use Image;
 
 class PhotoController extends Controller
 {
-    public function rotateImg(Request $request)
-    {
-        //doe bewerking
-        return response()->json(['success' => 'foto draaien gelukt']);
-    }
-
     public function editImage(Request $request)
     {
         $photo = Photo::find($request->input('photoid'));
@@ -34,7 +28,6 @@ class PhotoController extends Controller
             Storage::put($fileName, $file->__toString());
             $img->destroy();
             return response()->json(["success" => $photo->filename]);
-
         }
         if($action == "rotateRight") {
             $img->rotate(-90);
@@ -43,7 +36,16 @@ class PhotoController extends Controller
             $img->destroy();
             return response()->json(["success" => $photo->filename]);
         }
-        
         return response()->json(["test" => $photo->filename, "action" => $action]);
     }
+
+    public function deleteImage($photo)
+    {
+        $photo = Photo::find($photo);
+        $album = Album::find($photo->album_id);
+        $path = "public/".$album->foldername."/".$photo->filename;
+        Storage::delete($path);
+        $photo->delete();
+        return response()->json(["success" => $photo->id]);
+    } 
 }

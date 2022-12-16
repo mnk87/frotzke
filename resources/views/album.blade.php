@@ -42,7 +42,7 @@
         @foreach ($photos as $photo)
             <div class="photoListItem" data-filename="{{ $photo->filename }}" data-photoid="{{ $photo->id }}">
                 <div class="photoInfo" >
-                    <input type="checkbox" class="photoCheck" value="{{ $photo->id }}">
+                    <button type="button" class="deleteBtn" data-photoid="{{ $photo->id }}">x</button>
                     <h1>{{ $photo->filename }}</h1>
                     <p>{{ $photo->id }}</p>
                 </div>

@@ -66,7 +66,7 @@ function deleteAlbum() {
       // console.log(response.data.success);
       location.reload(true);
     }
-  })
+  });
   console.log(id);
 }
 const deleteAlbumButton = document.getElementById('deleteAlbumButton');
@@ -99,10 +99,8 @@ function editImage(action) {
     photoid: id,
     action: action
   }).then(function (response) {
-    // console.log(response);
     if(response.data.test) {
       console.log("response: ", response.data);
-      // console.log(response.data.test);
       return;
     }
     if(response.data.error) {
@@ -147,4 +145,34 @@ if(alertBox) {
 
 function destroyAlertBox() {
   document.getElementById('alertBox').remove();
+}
+
+const deleteButtons = document.querySelectorAll('.deleteBtn');
+if(deleteButtons) {
+  for(let i = 0; i < deleteButtons.length; i++) {
+    deleteButtons[i].addEventListener('click', function() {
+      deleteImage(deleteButtons[i].dataset.photoid)
+    })
+  }
+}
+
+function deleteImage(imageid) {
+  const url = "/upload/photos/" + imageid;
+  axios.delete(url).then(function (response) {
+    if(response.data.error) {
+      console.log(response.data);
+      return;
+    }
+    if(response.data.success) {
+      console.log(response.data.success);
+      const photoDivs = document.querySelectorAll('.photoListItem');
+      for(let i = 0; i < photoDivs.length; i++) {
+        if(photoDivs[i].dataset.photoid == imageid){
+          photoDivs[i].remove();
+          return;
+        }
+      }
+      console.error("div niet gevonden");
+    }
+  });
 }
