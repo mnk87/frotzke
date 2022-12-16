@@ -31,12 +31,17 @@
         {{ session('status') }}
     </div>
     @endif
-    <form action="/upload/albums/uploadMultiple" method="post" enctype="multipart/form-data">
-        @csrf
-        <input type="file" name="photos[]" id="photos" multiple>
-        <input type="hidden" name="albumid" value="{{ $album->id }}">
-        <button type="submit" name="submit" class="btn btn-primary">submit</button>
-    </form>
+    <div id="uploadFilesDiv">
+        <h1 class="uploadTitle">Foto's uploaden</h1>
+        <form action="/upload/albums/uploadMultiple" method="post" enctype="multipart/form-data">
+            @csrf
+            <button type="button" name="photosButton" id="photosButton">Selecteer Bestanden</button>
+            <label id="photosButtonLabel" for="photosButton">Geen bestanden geselecteerd.</label>
+            <input type="file" name="photos[]" id="photos" accept="image/*" multiple>
+            <input type="hidden" name="albumid" value="{{ $album->id }}">
+            <button type="submit" id="uploadSubmit" name="submit" class="submitBtn" disabled>Uploaden</button>
+        </form>
+    </div>
     <div id="photoDiv">
         <div id="photoListDiv">
         @foreach ($photos as $photo)

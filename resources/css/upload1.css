@@ -3,8 +3,11 @@
 * {
     margin: 0;
     padding: 0;
+}
+
+body {
     font-family: 'Nunito', sans-serif;
-} 
+}
 
 .topBar {
     width: 100%;
@@ -166,4 +169,36 @@
 
 .deleteBtn:hover {
     background-color: lightcoral;
+}
+
+#photos {
+    display:none;
+}
+
+#photosButton {
+    background-color: LightGreen;
+    border: 1px solid green;
+    padding: 5px;
+}
+
+.submitBtn {
+    background-color: LightGreen;
+    border: 1px solid green;
+    padding: 5px;
+}
+
+#uploadFilesDiv {
+    margin: 20px;
+    border: 1px solid black;
+    padding-bottom: 10px;
+    padding-left: 10px;
+}
+
+#uploadFilesDiv > form > label {
+    margin: 10px;
+}
+
+.uploadTitle {
+    font-size: 20px;
+    margin-top: -10px;
 }

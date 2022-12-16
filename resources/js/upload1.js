@@ -176,3 +176,31 @@ function deleteImage(imageid) {
     }
   });
 }
+
+function clickPhotosButton() {
+  document.getElementById('photos').click();
+}
+
+const photosButton = document.getElementById('photosButton');
+if(photosButton) {
+  photosButton.addEventListener('click', clickPhotosButton);
+}
+
+const photosInput = document.getElementById('photos');
+if(photosInput) {
+  photosInput.addEventListener('change', uploadButtonAction);
+}
+
+function uploadButtonAction() {
+  //change label on change
+  const amount = photosInput.files.length;
+  const fotos = amount > 1 || amount == 0 ? "foto's" : "foto";
+  const label = document.getElementById('photosButtonLabel');
+  const labelStr = amount + " " + fotos + " geselecteerd.";
+  label.innerText = labelStr;
+  //enable uploadbutton 
+  const uploadSubmit = document.getElementById('uploadSubmit');
+  if(amount > 0) {
+    uploadSubmit.disabled = false;
+  }
+}
