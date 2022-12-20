@@ -202,3 +202,8 @@ body {
     font-size: 20px;
     margin-top: -10px;
 }
+
+.bigTitle {
+    font-size: 25px;
+    text-align: center;
+}

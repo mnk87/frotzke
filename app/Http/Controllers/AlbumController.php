@@ -21,9 +21,14 @@ class AlbumController extends Controller
 
     public function storeAlbum(Request $request)
     {
+        $foldername = $request->input('foldername');
+        if($foldername == "preview"){
+            return response()->json(["error" => "verboden mapnaam: preview"]);
+        }
+        
         $album = new Album;
         $album->name = $request->input('name');
-        $album->foldername = $request->input('foldername');
+        $album->foldername = $foldername;
         $album->yearfolder = $request->input('yearfolder');
         $file = $request->file('bgimg');
         $name = "bgimg".".".$file->getClientOriginalExtension();
@@ -93,5 +98,15 @@ class AlbumController extends Controller
         $oeveel = count($photos);
         $fotos = $oeveel > 1 ? "foto's" : "foto";
         return back()->with('status', $oeveel.' '.$fotos.' met succes geüpload.');
+    }
+
+    public function previewUpload($album)
+    {
+        $directories = Storage::disk('ftp')->allDirectories("httpdocs/foto2023");
+        return view('preview', [
+            'album' => Album::find($album),
+            'photos' => Photo::where('album_id', $album)->get(),
+            'directories' => $directories
+        ]);
     }
 }

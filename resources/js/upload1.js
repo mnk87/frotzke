@@ -109,6 +109,7 @@ function editImage(action) {
     }
     if(response.data.success) {
       updateImageDisplay(document.getElementById('bigDisplay').src);
+      console.log(response.data);
       return;
     }
   });
@@ -140,7 +141,7 @@ function updateImageDisplay(src) {
 
 const alertBox = document.getElementById('alertBox');
 if(alertBox) {
-  setTimeout(destroyAlertBox, 2000);
+  setTimeout(destroyAlertBox, 10000);
 }
 
 function destroyAlertBox() {

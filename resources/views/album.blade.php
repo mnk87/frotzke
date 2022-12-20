@@ -25,7 +25,7 @@
 </div>
 <div class="containerDiv">
     <a href="{{ route('uploadhome') }}" class="backButton1"><< terug naar albums</a>
-    <h1>{{ $album->name }}</h1>
+    <h1 class="bigTitle">Album: {{ $album->name }}</h1>
     @if (session('status'))
     <div class="alert alert-success" id="alertBox">
         {{ session('status') }}
@@ -66,6 +66,9 @@
             
         </div>
     </div>
+    @if(count($photos) > 0)
+    <a href="/upload/preview/{{ $album->id }}">volgende pagina</a>
+    @endif
 </div>
 </body>
 </html>
