@@ -103,10 +103,16 @@ class AlbumController extends Controller
     public function previewUpload($album)
     {
         $directories = Storage::disk('ftp')->allDirectories("httpdocs/foto2023");
+        if(!Storage::exists('public/preview/foto2023.html')) {
+            Storage::writeStream('public/preview/foto2023.html', Storage::disk('ftp')->readStream('test/foto2023.html'));
+        }
+        $htmlcontents = Storage::get('public/preview/foto2023.html');
+
         return view('preview', [
             'album' => Album::find($album),
             'photos' => Photo::where('album_id', $album)->get(),
-            'directories' => $directories
+            'directories' => $directories,
+            'htmlcontents' => $htmlcontents
         ]);
     }
 }

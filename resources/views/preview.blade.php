@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Foto-upload dinges</title>
+    <script src="https://cdn.jsdelivr.net/npm/ace-builds@1.14.0/src-noconflict/ace.min.js" defer></script>
     @vite(["resources/js/app.js"])
 </head>
 <body>
@@ -27,6 +28,7 @@
     <a href="{{ route('uploadhome') }}" class="backButton1"><< terug naar albums</a>
     <h1 class="bigTitle">Album: {{ $album->name }}</h1>
     <code>{{ print_r($directories) }}</code>
+    <textarea name="editHTML" id="editHTML" cols="90" rows="100">{{ $htmlcontents }}</textarea>
 </div>
 </body>
 </html>
