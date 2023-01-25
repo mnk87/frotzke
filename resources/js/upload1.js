@@ -205,3 +205,8 @@ function uploadButtonAction() {
     uploadSubmit.disabled = false;
   }
 }
+
+const linkInput = document.getElementById("photoPageLink");
+if(linkInput) {
+  linkInput.value = pageLink;
+}

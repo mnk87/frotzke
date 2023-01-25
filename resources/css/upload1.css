@@ -207,3 +207,24 @@ body {
     font-size: 25px;
     text-align: center;
 }
+
+.smallTitle {
+    font-size: 20px;
+    text-align: center;
+}
+
+#overviewEdit {
+    width: 700px;
+    height: 800px;
+    margin: auto;
+}
+
+.pageEditDiv {
+    margin: 10px;
+    border: 1px solid black;
+    padding: 10px;
+}
+
+#photoPageLink {
+    width: 500px;
+}

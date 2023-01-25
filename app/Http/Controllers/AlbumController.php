@@ -25,11 +25,12 @@ class AlbumController extends Controller
         if($foldername == "preview"){
             return response()->json(["error" => "verboden mapnaam: preview"]);
         }
-        
+        // TODO: Add validation for foldername
         $album = new Album;
         $album->name = $request->input('name');
         $album->foldername = $foldername;
         $album->yearfolder = $request->input('yearfolder');
+        // TODO: resize image
         $file = $request->file('bgimg');
         $name = "bgimg".".".$file->getClientOriginalExtension();
         $album->bgimg = $name;
@@ -102,17 +103,20 @@ class AlbumController extends Controller
 
     public function previewUpload($album)
     {
-        $directories = Storage::disk('ftp')->allDirectories("httpdocs/foto2023");
-        if(!Storage::exists('public/preview/foto2023.html')) {
-            Storage::writeStream('public/preview/foto2023.html', Storage::disk('ftp')->readStream('test/foto2023.html'));
+        $albumObj = Album::find($album);
+        $directories = Storage::disk('ftp')->allDirectories("httpdocs/".$albumObj->yearfolder."/");
+        if(!Storage::exists('public/preview/'.$albumObj->yearfolder.'.html')) {
+            Storage::writeStream('public/preview/'.$albumObj->yearfolder.'.html', Storage::disk('ftp')->readStream('test/foto2023.html'));
         }
         $htmlcontents = Storage::get('public/preview/foto2023.html');
+        $pageLinkString = '        <a href="'.$albumObj->foldername.'.html" class="btn btn-sm" target="_blank" >                                                       <p class="tekst1">'.$albumObj->name.'</p></a>';
 
         return view('preview', [
-            'album' => Album::find($album),
+            'album' => $albumObj,
             'photos' => Photo::where('album_id', $album)->get(),
             'directories' => $directories,
-            'htmlcontents' => $htmlcontents
+            'htmlcontents' => $htmlcontents,
+            'newPageLink' => $pageLinkString
         ]);
     }
 }

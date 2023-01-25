@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Foto-upload dinges</title>
-    <script src="https://cdn.jsdelivr.net/npm/ace-builds@1.14.0/src-noconflict/ace.min.js" defer></script>
     @vite(["resources/js/app.js"])
 </head>
 <body>
     <script>
         let album = @json($album);
         let photos = @json($photos);
+        let pageLink = '{!! $newPageLink !!}';
+        console.log(pageLink);
         const folder = "{{ url('storage/'.$album->foldername) }}";
     </script>
 <div class="topBar">
@@ -27,8 +28,15 @@
 <div class="containerDiv">
     <a href="{{ route('uploadhome') }}" class="backButton1"><< terug naar albums</a>
     <h1 class="bigTitle">Album: {{ $album->name }}</h1>
-    <code>{{ print_r($directories) }}</code>
-    <textarea name="editHTML" id="editHTML" cols="90" rows="100">{{ $htmlcontents }}</textarea>
+    <div class="pageEditDiv">
+        <h2 class="smallTitle">overzichtspagina bewerken</h2>
+        <div id="PageLinkInputDiv">
+            <input type="text" name="photoPageLink" id="photoPageLink">
+            <button type="button" id="photoPageLinkButton">Kopieren</button>
+        </div>    
+    </div>
+    
+        <textarea id="overviewEdit">{{ $htmlcontents }}</textarea>
 </div>
 </body>
 </html>
