@@ -210,3 +210,18 @@ const linkInput = document.getElementById("photoPageLink");
 if(linkInput) {
   linkInput.value = pageLink;
 }
+
+const linkButton = document.getElementById("photoPageLinkButton");
+if(linkButton) {
+  linkButton.addEventListener('click', updateClipboard);
+}
+
+function updateClipboard() {
+  const newClip = linkInput.value;
+  navigator.clipboard.writeText(newClip).then(() => {
+    linkButton.classList.add("copied");
+    linkButton.innerText = "gekopieerd";
+  }, (err) => {
+    console.error("copying failed with error: ", err);
+  });
+}

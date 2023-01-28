@@ -12,7 +12,7 @@
         let album = @json($album);
         let photos = @json($photos);
         let pageLink = '{!! $newPageLink !!}';
-        console.log(pageLink);
+        // console.log(pageLink);
         const folder = "{{ url('storage/'.$album->foldername) }}";
     </script>
 <div class="topBar">
@@ -30,9 +30,24 @@
     <h1 class="bigTitle">Album: {{ $album->name }}</h1>
     <div class="pageEditDiv">
         <h2 class="smallTitle">overzichtspagina bewerken</h2>
-        <div id="PageLinkInputDiv">
+        <div class="overzichtSubDiv">
+            <h3 class="verySmallTitle">Nieuwe pagina link toevoegen aan pagina</h3>
+            <p>Kopieer de onderstaande link met het knopje en voeg deze in op de pagina waar de andere links naar fotopagina's staan</p>
             <input type="text" name="photoPageLink" id="photoPageLink">
             <button type="button" id="photoPageLinkButton">Kopieren</button>
+        </div>
+        <div class="overzichtSubDiv">
+            <h3 class="verySmallTitle">Versienummer veranderen van de css file</h3>
+            <p>Ergens aan het begin van onderstaande code staat een link naar een css file genaamd "algemeen_resp.css" met daar een versienummer onder.
+                verhoog dit versienummer zodat de volgende keer dat iemand op de pagina komt, hij/zij de aangepaste pagina te zien krijgt in plaats van de gechachte versie.
+            </p>
+        </div>
+        <div class="overzichtSubDiv">
+            <h3 class="verySmallTitle">Uploaden van aangepaste overzichtspagina en nieuwe fotopagina</h3>
+            <p>Als je klaar bent met bovenstaande bewerkingen, is alles gereed om te uploaden. Klik op de volgende button om de albumpagina, 
+                de foto's en de aangepaste overzichtspagina te uploaden naar puitenol.nl.</p>
+            <p>LET OP, dit kan een tijdje duren. In een latere versie wordt de vooruitgang gevisualiseerd. Voorlopig nog niet, dus wacht tot je het huidige scherm weer te zien krijgt.</p>
+            <button type="button" id="toPuitenolButton">UPLOAD ALBUM EN OVERZICHTSPAGINA</button>
         </div>    
     </div>
     

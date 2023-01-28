@@ -228,3 +228,30 @@ body {
 #photoPageLink {
     width: 500px;
 }
+
+#photoPageLinkButton {
+    border: 1px solid black;
+    padding: 5px;
+}
+
+.copied {
+    background-color: green;
+}
+
+.verySmallTitle {
+    font-size: 15px;
+    text-align: center;
+}
+
+.overzichtSubDiv {
+    margin: 10px;
+    border: 1px solid black;
+    padding: 10px;
+}
+
+#toPuitenolButton {
+    padding: 15px;
+    margin: 15px;
+    font-size: 20px;
+    background-color: darkgoldenrod;
+}
