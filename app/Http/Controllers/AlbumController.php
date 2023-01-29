@@ -104,19 +104,70 @@ class AlbumController extends Controller
     public function previewUpload($album)
     {
         $albumObj = Album::find($album);
-        $directories = Storage::disk('ftp')->allDirectories("httpdocs/".$albumObj->yearfolder."/");
-        if(!Storage::exists('public/preview/'.$albumObj->yearfolder.'.html')) {
-            Storage::writeStream('public/preview/'.$albumObj->yearfolder.'.html', Storage::disk('ftp')->readStream('test/foto2023.html'));
-        }
-        $htmlcontents = Storage::get('public/preview/foto2023.html');
+        // TODO: test veranderen in httpdocs
+        $contents = Storage::disk('ftp')->get('test/'.$albumObj->yearfolder.'/'.$albumObj->yearfolder.'.html');
+        Storage::put('public/preview/'.$albumObj->yearfolder.'.html', $contents);
+        $htmlcontents = Storage::get('public/preview/'.$albumObj->yearfolder.'.html');
         $pageLinkString = '        <a href="'.$albumObj->foldername.'.html" class="btn btn-sm" target="_blank" >                                                       <p class="tekst1">'.$albumObj->name.'</p></a>';
 
         return view('preview', [
             'album' => $albumObj,
             'photos' => Photo::where('album_id', $album)->get(),
-            'directories' => $directories,
             'htmlcontents' => $htmlcontents,
             'newPageLink' => $pageLinkString
         ]);
+    }
+
+    public function uploadAlbum(Request $request) {
+        $albumObj = Album::find($request->input('album'));
+        $photoObjs = $albumObj->photos;
+        
+        $taVal = $request->input('taVal');
+        // TODO: test veranderen in httpdocs
+        Storage::disk('ftp')->put('test/'.$albumObj->yearfolder.'/'.$albumObj->yearfolder.'.html', $taVal);
+        // aanmaken van fotopagina
+        $headpart = '<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name=description author="nico en michiel van ginhoven">
+         
+    <link href="../css-files/algemeen_resp.css" rel="stylesheet">
+    <link href="../css-files/bscss.css" rel="stylesheet">
+         
+    <script src="../js-files/bsjs.js" defer></script>
+    <script src="../js-files/showstuff.js" defer></script>
+    <script src="../js-files/maxscherm.js" defer></script>
+          
+    <title>'.$albumObj->title.'</title>        
+</head>';
+        $fileurl = 'public/preview/'.$albumObj->foldername.'.html';
+        Storage::put('public/preview/'.$albumObj->foldername.'.html', $headpart);
+        $bodybg = '<body style="background-image: url(\''.$albumObj->foldername.'/'.'bgimg.jpg'.'\')" >';
+        Storage::append($fileurl, $bodybg);
+        $tussenstukje = '    <div class="container">
+        <div class="plaat">';
+        Storage::append($fileurl, $tussenstukje);
+        $photoAmount = count($photoObjs);
+        for($i = 0; $i < $photoAmount; $i++){
+            $imgString = '            <img src="'.$albumObj->foldername.'/'.$photoObjs[$i]->filename.'" alt="'.$photoObjs[$i]->filename.'">';
+            Storage::append($fileurl, $imgString);
+        }
+        $eindstuk = '            <br><br><br>
+            <button onclick="self.close()">sluiten</button>
+            <br><br><br>         
+        </div>
+    </div>
+</body>
+</html>';
+        Storage::append($fileurl, $eindstuk);
+        // klaar met html, uploaden via ftp
+        $htmlcontents = Storage::get($fileurl);
+        // TODO: test veranderen in httpdocs
+        Storage::disk('ftp')->put("test/".$albumObj->yearfolder."/".$albumObj->foldername.".html", $htmlcontents);
+        $photoFolder = "public/".$albumObj->foldername;
+        return response()->json(["test" => $bodybg]); 
+        // Storage::put('public/preview/'.$albumObj->yearfolder.'.html', $taVal);
     }
 }

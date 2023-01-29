@@ -34,5 +34,6 @@ Route::group(['prefix' => 'upload', 'middleware' => 'auth'], function()
     Route::put('/albums/photo-edit', [PhotoController::class, 'editImage']);
     Route::delete('/photos/{photo}', [PhotoController::class, 'deleteImage']);
     Route::get('/preview/{album}', [AlbumController::class, 'previewUpload']);
+    Route::post('/uploadalbum', [AlbumController::class, 'uploadAlbum']);
 });
 require __DIR__.'/auth.php';

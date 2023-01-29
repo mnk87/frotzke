@@ -225,3 +225,30 @@ function updateClipboard() {
     console.error("copying failed with error: ", err);
   });
 }
+
+const puitButton = document.getElementById("toPuitenolButton");
+if(puitButton) {
+  puitButton.addEventListener('click', puitAction);
+}
+
+function puitAction() {
+  const taVal = document.getElementById("overviewEdit").value;
+  // return;
+  axios.post('/upload/uploadalbum', {
+    album: album.id,
+    taVal: taVal
+  }).then(function (response) {
+    if(response.data.test) {
+      console.log("response: ", response);
+      // console.log(response.data.test);
+      return;
+    }
+    if(response.data.error) {
+      console.log(response.data.error);
+      return;
+    }
+    if(response.data.success) {
+      console.log("response: ", response);
+    }
+  });
+}
