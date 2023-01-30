@@ -249,6 +249,7 @@ function puitAction() {
     }
     if(response.data.success) {
       console.log("response: ", response);
+      document.getElementById("uploadMessageBox").innerHTML = "uploaden klaar! ga naar <a href=https://puitenol.nl/" + album.yearfolder + "/" + album.yearfolder + ".html target=\"_blank\" class=\"linkje\">puitenol</a> om te kijken naar het resultaat!"
     }
   });
 }

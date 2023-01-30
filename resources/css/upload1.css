@@ -255,3 +255,10 @@ body {
     font-size: 20px;
     background-color: darkgoldenrod;
 }
+
+.linkje {
+    padding: 5px;
+    border: 1px solid green;
+    background-color: aquamarine;
+    color: green;
+}

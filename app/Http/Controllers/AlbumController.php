@@ -13,6 +13,8 @@ class AlbumController extends Controller
 {
 
     private $resizeHeight = 480;
+    // TODO: test veranderen in httpdocs
+    private $ftpfolder = "test";
 
     public function uploadview()
     {
@@ -104,8 +106,8 @@ class AlbumController extends Controller
     public function previewUpload($album)
     {
         $albumObj = Album::find($album);
-        // TODO: test veranderen in httpdocs
-        $contents = Storage::disk('ftp')->get('test/'.$albumObj->yearfolder.'/'.$albumObj->yearfolder.'.html');
+        
+        $contents = Storage::disk('ftp')->get($this->ftpfolder."/".$albumObj->yearfolder.'/'.$albumObj->yearfolder.'.html');
         Storage::put('public/preview/'.$albumObj->yearfolder.'.html', $contents);
         $htmlcontents = Storage::get('public/preview/'.$albumObj->yearfolder.'.html');
         $pageLinkString = '        <a href="'.$albumObj->foldername.'.html" class="btn btn-sm" target="_blank" >                                                       <p class="tekst1">'.$albumObj->name.'</p></a>';
@@ -123,8 +125,7 @@ class AlbumController extends Controller
         $photoObjs = $albumObj->photos;
         
         $taVal = $request->input('taVal');
-        // TODO: test veranderen in httpdocs
-        Storage::disk('ftp')->put('test/'.$albumObj->yearfolder.'/'.$albumObj->yearfolder.'.html', $taVal);
+        Storage::disk('ftp')->put($this->ftpfolder."/".$albumObj->yearfolder.'/'.$albumObj->yearfolder.'.html', $taVal);
         // aanmaken van fotopagina
         $headpart = '<!doctype html>
 <html lang="en">
@@ -140,7 +141,7 @@ class AlbumController extends Controller
     <script src="../js-files/showstuff.js" defer></script>
     <script src="../js-files/maxscherm.js" defer></script>
           
-    <title>'.$albumObj->title.'</title>        
+    <title>'.$albumObj->name.'</title>        
 </head>';
         $fileurl = 'public/preview/'.$albumObj->foldername.'.html';
         Storage::put('public/preview/'.$albumObj->foldername.'.html', $headpart);
@@ -151,7 +152,7 @@ class AlbumController extends Controller
         Storage::append($fileurl, $tussenstukje);
         $photoAmount = count($photoObjs);
         for($i = 0; $i < $photoAmount; $i++){
-            $imgString = '            <img src="'.$albumObj->foldername.'/'.$photoObjs[$i]->filename.'" alt="'.$photoObjs[$i]->filename.'">';
+            $imgString = '            <img src="'.$albumObj->foldername.'/'.$photoObjs[$i]->filename.'">';
             Storage::append($fileurl, $imgString);
         }
         $eindstuk = '            <br><br><br>
@@ -164,10 +165,17 @@ class AlbumController extends Controller
         Storage::append($fileurl, $eindstuk);
         // klaar met html, uploaden via ftp
         $htmlcontents = Storage::get($fileurl);
-        // TODO: test veranderen in httpdocs
-        Storage::disk('ftp')->put("test/".$albumObj->yearfolder."/".$albumObj->foldername.".html", $htmlcontents);
+        Storage::disk('ftp')->put($this->ftpfolder."/".$albumObj->yearfolder."/".$albumObj->foldername.".html", $htmlcontents);
         $photoFolder = "public/".$albumObj->foldername;
-        return response()->json(["test" => $bodybg]); 
+        
         // Storage::put('public/preview/'.$albumObj->yearfolder.'.html', $taVal);
+        Storage::disk('ftp')->makeDirectory($this->ftpfolder."/".$albumObj->yearfolder."/".$albumObj->foldername."/", 0777, true, true);
+        $dir = "public/".Album::find($photoObjs[0]->album_id)->foldername;
+        for($i = 0; $i < $photoAmount; $i++) {
+            $filename = $dir."/".$photoObjs[$i]->filename;
+            $image = Storage::get($filename);
+            Storage::disk('ftp')->put($this->ftpfolder."/".$albumObj->yearfolder."/".$albumObj->foldername."/".$photoObjs[$i]->filename, $image);
+        }
+        return response()->json(["success" => "gelukt!"]); 
     }
 }
