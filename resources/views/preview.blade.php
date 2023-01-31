@@ -47,7 +47,7 @@
             <h3 class="verySmallTitle">Uploaden van aangepaste overzichtspagina en nieuwe fotopagina</h3>
             <p>Als je klaar bent met bovenstaande bewerkingen, is alles gereed om te uploaden. Klik op de volgende button om de albumpagina, 
                 de foto's en de aangepaste overzichtspagina te uploaden naar puitenol.nl.</p>
-            <p>LET OP, dit kan een tijdje duren. In een latere versie wordt de vooruitgang gevisualiseerd. Voorlopig nog niet, dus wacht tot je het huidige scherm weer te zien krijgt.</p>
+            <p>LET OP, dit kan een tijdje duren. In een latere versie wordt de vooruitgang gevisualiseerd. Voorlopig nog niet, je krijgt een melding onder de knop als het klaar is.</p>
             <button type="button" id="toPuitenolButton">UPLOAD ALBUM EN OVERZICHTSPAGINA</button>
             <div id="uploadMessageBox"></div>
         </div>    

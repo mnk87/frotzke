@@ -53,11 +53,11 @@
                 </div>
                 <div class="mb-3">
                     <label for="folderNameInput" class="form-label">Mapnaam</label>
-                    <input type="email" class="form-control" id="folderNameInput" placeholder="Mapnaam">
+                    <input type="text" class="form-control" id="folderNameInput" placeholder="Mapnaam">
                 </div>
                 <div class="mb-3">
                     <label for="yearFolderInput" class="form-label">Jaarmapnaam</label>
-                    <input type="email" class="form-control" id="yearFolderInput" placeholder="Jaarmapnaam">
+                    <input type="text" class="form-control" id="yearFolderInput" placeholder="Jaarmapnaam">
                 </div>
                 <div class="mb-3">
                     <label for="bgImgInput" class="form-label">Achtergrondafbeelding</label>
@@ -66,8 +66,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="saveAlbumButton">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Sluiten</button>
+                <button type="button" class="btn btn-primary" id="saveAlbumButton">Opslaan</button>
             </div>
         </div>
     </div>
@@ -94,8 +94,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger" id="deleteAlbumButton">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Sluiten</button>
+                <button type="button" class="btn btn-danger" id="deleteAlbumButton">Verwijderen</button>
             </div>
         </div>
     </div>

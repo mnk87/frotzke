@@ -28,21 +28,30 @@ class AlbumController extends Controller
             return response()->json(["error" => "verboden mapnaam: preview"]);
         }
         // TODO: Add validation for foldername
+        if(empty($request->input('name')) || empty($request->input('foldername')) || empty($request->input('yearfolder')) || empty($request->file('bgimg'))) {
+            return response()->json(["error" => "Er is iets fout gegaan met het aanmaken van een nieuw album. Controleer of je alle velden hebt ingevuld."]);
+        }
         $album = new Album;
         $album->name = $request->input('name');
         $album->foldername = $foldername;
         $album->yearfolder = $request->input('yearfolder');
-        // TODO: resize image
         $file = $request->file('bgimg');
-        $name = "bgimg".".".$file->getClientOriginalExtension();
+        $name = "bgimg.jpg";
         $album->bgimg = $name;
-        // return response()->json(["test" => $name]);
         $path = 'public/'.$request->input('foldername');
         Storage::makeDirectory($path);
-        $storedFile = $file->storeAs($path, $name);
-        if(empty($request->input('name')) || empty($request->input('foldername')) || empty($request->input('yearfolder')) || empty($request->file('bgimg'))) {
-            return response()->json(["error" => "Er is iets fout gegaan met het aanmaken van een nieuw album. Controleer of je alle velden hebt ingevuld."]);
+        $img = Image::make($file);
+        if($img->height() > $this->resizeHeight)
+        {
+            $img->resize(null, $this->resizeHeight, function ($constraint) {
+                $constraint->aspectRatio();
+            });
         }
+        $encoded = $img->encode('jpg');
+        $fileName = $path."/".$name;
+        Storage::put($fileName, $encoded->__toString());
+        $img->destroy();
+        
         if(!$album->save()){
             return response()->json(["error" => "is nie goed gegaan"]);
         }
@@ -176,6 +185,9 @@ class AlbumController extends Controller
             $image = Storage::get($filename);
             Storage::disk('ftp')->put($this->ftpfolder."/".$albumObj->yearfolder."/".$albumObj->foldername."/".$photoObjs[$i]->filename, $image);
         }
+        $filename = $dir."/bgimg.jpg";
+        $image = Storage::get($filename);
+        Storage::disk('ftp')->put($this->ftpfolder."/".$albumObj->yearfolder."/".$albumObj->foldername."/bgimg.jpg", $image);
         return response()->json(["success" => "gelukt!"]); 
     }
 }
